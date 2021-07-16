@@ -51,6 +51,7 @@ func main() {
 }
 
 func watchNodes(clientset *kubernetes.Clientset) error {
+	imageSizes = make(map[string]uint64)
 	api := clientset.CoreV1().Nodes()
 	watcher, err := api.Watch(context.Background(), metav1.ListOptions{})
 
@@ -83,6 +84,7 @@ func checkImageSize(node *coreV1.Node) {
 
 	if imageSizes[node.Name] != size {
 		log.Infof("Image size changed for node %s. Old: [%v], New: [%v]", node.Name, humanize.Bytes(imageSizes[node.Name]), humanize.Bytes(size))
+		imageSizes[node.Name] = size
 	}
 
 }
