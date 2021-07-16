@@ -1,4 +1,4 @@
-module github.com/kmjayadeep/simplecontroller
+module github.com/kmjayadeep/k8s-node-imagesize-controller
 
 go 1.16
 
