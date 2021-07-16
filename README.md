@@ -19,4 +19,19 @@ INFO[0009] Image size changed for node ip-10-0-102-198.ec2.internal. Old: [14 GB
 
 # Running in cluster
 
-For running in cluster, you need to create a serviceaccount with RBAC for watching Nodes and. Then Create a pod with a docker image from this repo and run it with the serviceaccount created.
+The file `deployment.yaml` contains the yaml spec for running in a cluster. Change the namespace and image if necessary and apply the config
+
+
+```
+kubectl apply -f deployment.yaml
+```
+
+# Skaffold
+
+If you are a fan of `Skaffold`, you can use it to build and run the image on the cluster without worrying about dockerfiles
+
+
+Change the config in skaffold.yaml and run
+```
+skaffold run
+``
