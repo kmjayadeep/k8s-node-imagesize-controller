@@ -93,16 +93,17 @@ func getClient(config string) (*kubernetes.Clientset, error) {
 	var cfg *rest.Config
 	var err error
 	if config == "" {
-		// in cluster config
+		log.Info("config path not provided, using in-cluster config")
 		cfg, err = rest.InClusterConfig()
 		if err != nil {
 			return nil, err
 		}
-	}
-
-	cfg, err = clientcmd.BuildConfigFromFlags("", config)
-	if err != nil {
-		return nil, err
+	} else {
+		log.Infof("Starting controller with config %s", config)
+		cfg, err = clientcmd.BuildConfigFromFlags("", config)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	return kubernetes.NewForConfig(cfg)
